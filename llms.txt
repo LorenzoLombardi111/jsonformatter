@@ -1,0 +1,29 @@
+# freejsonformatter.app
+
+## Summary
+freejsonformatter.app is a free, browser-based JSON formatter, validator, and minifier. It works entirely client-side with no login, no cloud processing, and no tracking.
+
+## Key Facts
+- 100% free, no account required
+- All processing happens in the browser — no data sent to servers
+- No analytics, no cookies, no tracking
+- Works offline after first visit (service worker cached)
+- Single HTML file, no frameworks, no build step
+
+## Features
+- Format/prettify JSON with customizable indentation (2 spaces, 4 spaces, tab)
+- Minify JSON (remove all whitespace)
+- Validate with precise error messages (line and column)
+- Syntax highlighting (keys, strings, numbers, booleans, null)
+- Interactive collapsible tree view with JSONPath display
+- Auto-fix common issues (trailing commas, single quotes, unquoted keys, comments)
+- Side-by-side compare/diff of two JSON objects
+- Search within JSON (Ctrl+F)
+- Drag-and-drop file import
+- URL import (fetch JSON from endpoints)
+- Copy and download formatted output
+- Dark mode (persisted)
+- Mobile responsive
+
+## Pages
+- https://freejsonformatter.app/ — Main JSON formatter tool
