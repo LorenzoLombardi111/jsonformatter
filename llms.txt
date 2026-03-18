@@ -27,3 +27,8 @@ freejsonformatter.app is a free, browser-based JSON formatter, validator, and mi
 
 ## Pages
 - https://freejsonformatter.app/ — Main JSON formatter tool
+- https://freejsonformatter.app/vs-jsonlint.html — Comparison of freejsonformatter.app vs JSONLint, highlighting privacy and feature advantages
+- https://freejsonformatter.app/vs-jsonformatter-org.html — Comparison of freejsonformatter.app vs jsonformatter.org, focusing on cleaner UI and no ads
+- https://freejsonformatter.app/json-validator.html — Guide to JSON validation, common errors, and how freejsonformatter.app validates client-side
+- https://freejsonformatter.app/json-formatter-for-developers.html — How developers use freejsonformatter.app for API debugging, config files, and daily workflows
+- https://freejsonformatter.app/json-minifier.html — Guide to JSON minification, space savings, and one-click minify with freejsonformatter.app
