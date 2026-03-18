@@ -193,9 +193,9 @@ html.dark .theme-toggle::after{transform:translateX(16px)}
 .editor-wrapper{flex:1;display:flex;position:relative;overflow:hidden}
 .line-numbers{width:40px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);overflow:hidden;padding:12px 4px 12px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;color:var(--text-muted);user-select:none}
 .editor-container{flex:1;position:relative;overflow:hidden}
-.editor-highlight{position:absolute;top:0;left:0;right:0;bottom:0;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow:auto;pointer-events:none;color:var(--text-primary);z-index:2;background:var(--bg)}
-.editor-textarea{position:absolute;top:0;left:0;width:100%;height:100%;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;background:transparent;color:transparent;border:none;outline:none;resize:none;white-space:pre-wrap;word-wrap:break-word;overflow:auto;caret-color:var(--text-primary);z-index:3}
-.editor-textarea::placeholder{color:var(--text-muted);-webkit-text-fill-color:var(--text-muted)}
+.editor-highlight{position:absolute;top:0;left:0;right:0;bottom:0;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow:auto;pointer-events:none;color:transparent;z-index:2}
+.editor-textarea{position:absolute;top:0;left:0;width:100%;height:100%;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;background:var(--bg);color:var(--text-primary);border:none;outline:none;resize:none;white-space:pre-wrap;word-wrap:break-word;overflow:auto;z-index:1}
+.editor-textarea::placeholder{color:var(--text-muted)}
 
 /* Error banner */
 .error-banner{display:none;padding:8px 16px;background:var(--syn-error-line);border-top:2px solid var(--syn-error-underline);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--destructive);align-items:center;gap:8px;flex-shrink:0;cursor:pointer}
@@ -688,28 +688,21 @@ function onEditorInput() {
 
 function updateHighlight() {
   const code = document.getElementById('editor').value;
-  let html = syntaxHighlight(escapeHtml(code));
-  // Apply search highlights if active
+  // The highlight overlay is used only for search marks
   if (searchMatches.length > 0) {
-    const escaped = escapeHtml(code);
-    let result = '';
-    let lastIdx = 0;
-    // Map original text positions to escaped HTML positions
     const posMap = [];
     let ei = 0;
     for (let i = 0; i < code.length; i++) {
       posMap[i] = ei;
-      if (code[i] === '&') ei += 5; // &amp;
-      else if (code[i] === '<') ei += 4; // &lt;
-      else if (code[i] === '>') ei += 4; // &gt;
+      if (code[i] === '&') ei += 5;
+      else if (code[i] === '<') ei += 4;
+      else if (code[i] === '>') ei += 4;
       else ei += 1;
     }
     posMap[code.length] = ei;
-    // Re-highlight with search marks applied after syntax highlighting
-    // Simpler approach: rebuild with marks on the escaped text, then syntax-highlight
-    result = '';
-    lastIdx = 0;
     const esc = escapeHtml(code);
+    let result = '';
+    let lastIdx = 0;
     for (let i = 0; i < searchMatches.length; i++) {
       const m = searchMatches[i];
       const s = posMap[m.start];
@@ -720,9 +713,10 @@ function updateHighlight() {
       lastIdx = e;
     }
     result += esc.substring(lastIdx);
-    html = syntaxHighlight(result);
+    document.getElementById('editor-highlight').innerHTML = result;
+  } else {
+    document.getElementById('editor-highlight').innerHTML = '';
   }
-  document.getElementById('editor-highlight').innerHTML = html;
 }
 
 function escapeHtml(s) {
