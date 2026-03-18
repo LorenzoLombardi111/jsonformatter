@@ -9,13 +9,13 @@
 <link rel="canonical" href="https://freejsonformatter.app/json-formatter-for-developers.html">
 <meta property="og:title" content="Free JSON Formatter for Developers — Format, Validate &amp; Debug | freejsonformatter.app">
 <meta property="og:description" content="Free JSON formatter for developers — format, validate, and debug JSON instantly. No login, no tracking.">
-<meta property="og:image" content="/og-image.svg">
+<meta property="og:image" content="https://freejsonformatter.app/og-image.svg">
 <meta property="og:url" content="https://freejsonformatter.app/json-formatter-for-developers.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free JSON Formatter for Developers — Format, Validate &amp; Debug | freejsonformatter.app">
 <meta name="twitter:description" content="Free JSON formatter for developers — format, validate, and debug JSON instantly. No login, no tracking.">
-<meta name="twitter:image" content="/og-image.svg">
+<meta name="twitter:image" content="https://freejsonformatter.app/og-image.svg">
 <meta name="theme-color" content="#faf9f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,7 @@
     "name": "freejsonformatter.app",
     "url": "https://freejsonformatter.app/"
   },
+  "description": "Free JSON formatter for developers — format, validate, and debug JSON instantly at freejsonformatter.app. No login, no tracking.",
   "mainEntityOfPage": "https://freejsonformatter.app/json-formatter-for-developers.html"
 }
 </script>
@@ -50,7 +51,7 @@
       "name": "Can I format JSON from an API URL?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. freejsonformatter.app lets you paste any API endpoint URL and fetch its JSON response directly into the editor. The response is formatted and syntax-highlighted automatically, so you can inspect API output without switching to a separate tool like curl or Postman."
+        "text": "Yes. Paste any API endpoint URL into freejsonformatter.app and it fetches the JSON response directly into the editor. The response is formatted, syntax-highlighted, and ready for inspection — no curl or Postman required."
       }
     },
     {
@@ -58,7 +59,7 @@
       "name": "Does freejsonformatter.app support keyboard shortcuts?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Common actions like Format (Ctrl+Shift+F), Minify (Ctrl+Shift+M), Copy (Ctrl+Shift+C), and Fix & Format are all bound to keyboard shortcuts. This lets you stay in a keyboard-driven workflow without reaching for the mouse."
+        "text": "Yes. Format (Ctrl+Shift+F), Minify (Ctrl+Shift+M), Copy (Ctrl+Shift+C), and Fix & Format are all accessible via keyboard shortcuts. The bindings are designed to match common IDE conventions so you can stay in a keyboard-driven workflow."
       }
     },
     {
@@ -66,7 +67,7 @@
       "name": "Can I compare two JSON API responses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The built-in Compare mode performs a deep diff of two JSON objects, highlighting added keys, removed keys, and changed values with color-coded markers. It is ideal for spotting regressions between API versions or comparing staging versus production responses."
+        "text": "Yes. Compare mode performs a deep structural diff of two JSON objects, highlighting added, removed, and changed keys with color-coded markers. It is ideal for spotting differences between API versions or comparing responses across environments."
       }
     },
     {
@@ -74,7 +75,7 @@
       "name": "Does freejsonformatter.app work offline for local development?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. A service worker caches all assets after your first visit, so the app works entirely offline. This makes it reliable during local development when you may not have internet access or want zero external dependencies."
+        "text": "Yes. A service worker caches all necessary files after your first visit. The app runs entirely offline with full functionality, making it reliable during local development without internet access."
       }
     },
     {
@@ -82,7 +83,7 @@
       "name": "What indentation options are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "freejsonformatter.app supports 2-space, 4-space, and tab indentation. You can switch between them at any time, and the formatted output updates instantly. Most developers prefer 2-space indentation for compact display or 4-space for readability."
+        "text": "freejsonformatter.app supports 2-space, 4-space, and tab indentation. You can switch between them at any time and the formatted output updates instantly. Choose whichever matches your project's code style."
       }
     }
   ]
@@ -192,7 +193,7 @@ details p{padding:0 18px 14px;margin:0;font-size:14px;color:var(--text-secondary
 .related a:hover{text-decoration:underline}
 
 /* Attribution badge */
-.attribution{margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted);text-align:center}
+.attribution{position:fixed;bottom:34px;right:16px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text-muted);z-index:10;padding:4px 8px}
 
 @media(max-width:768px){
   .wrapper{padding:32px 16px}
@@ -288,7 +289,7 @@ details p{padding:0 18px 14px;margin:0;font-size:14px;color:var(--text-secondary
 </ul>
 </div>
 
-<div class="attribution">&copy; freejsonformatter.app</div>
+<div class="attribution">by freesuite.app</div>
 
 </div>
 

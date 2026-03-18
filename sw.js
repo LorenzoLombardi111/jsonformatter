@@ -1,5 +1,10 @@
 const CACHE_NAME = 'jsonformat-v1';
-const ASSETS = ['/', '/index.html', '/manifest.json', '/og-image.svg'];
+const ASSETS = [
+  '/', '/index.html', '/manifest.json', '/og-image.svg',
+  '/vs-jsonlint.html', '/vs-jsonformatter-org.html',
+  '/json-validator.html', '/json-formatter-for-developers.html',
+  '/json-minifier.html'
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(

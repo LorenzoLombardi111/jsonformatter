@@ -94,7 +94,7 @@ freejsonformatter.app validates JSON entirely in your browser using native JSON.
 
 Client-side validation is essential for sensitive data. Unlike server-based validators, freejsonformatter.app never transmits your JSON anywhere — making it safe for API keys, configuration files, and production data.
 
-Note: freejsonformatter.app validates JSON syntax, not JSON Schema. Schema validation (checking that JSON conforms to a specific structure definition) is available as a premium feature.
+Note: freejsonformatter.app validates JSON syntax, not JSON Schema. JSON Schema validation (checking that JSON conforms to a specific structure definition) is a separate capability not currently included in the free tool.
 
 ---
 

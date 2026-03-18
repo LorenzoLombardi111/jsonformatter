@@ -9,13 +9,13 @@
 <link rel="canonical" href="https://freejsonformatter.app/json-validator.html">
 <meta property="og:title" content="Free JSON Validator Online — Check JSON Syntax Instantly | freejsonformatter.app">
 <meta property="og:description" content="Paste JSON and instantly validate syntax with exact error locations. Free, private, no login required.">
-<meta property="og:image" content="/og-image.svg">
+<meta property="og:image" content="https://freejsonformatter.app/og-image.svg">
 <meta property="og:url" content="https://freejsonformatter.app/json-validator.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free JSON Validator Online — Check JSON Syntax Instantly | freejsonformatter.app">
 <meta name="twitter:description" content="Paste JSON and instantly validate syntax with exact error locations. Free, private, no login required.">
-<meta name="twitter:image" content="/og-image.svg">
+<meta name="twitter:image" content="https://freejsonformatter.app/og-image.svg">
 <meta name="theme-color" content="#faf9f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +59,7 @@
       "name": "What are the most common JSON errors?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The most common JSON errors include trailing commas after the last item in an array or object, using single quotes instead of double quotes, unquoted property keys, missing or mismatched brackets and braces, and using JavaScript-style comments. These mistakes are easy to make when writing JSON by hand."
+        "text": "The most common JSON errors include trailing commas after the last item in an array or object, using single quotes instead of double quotes, unquoted property keys, missing or mismatched brackets and braces, and using JavaScript-style comments. These mistakes are easy to make when writing JSON by hand or copying from JavaScript code."
       }
     },
     {
@@ -75,7 +75,7 @@
       "name": "Does freejsonformatter.app validate against JSON Schema?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "freejsonformatter.app currently performs syntax validation — it checks whether your JSON is well-formed according to the JSON specification. JSON Schema validation, which checks whether data matches a specific structure with required fields and types, is a different process. The tool focuses on catching syntax errors instantly."
+        "text": "freejsonformatter.app currently performs syntax validation — it checks whether your JSON is well-formed according to the JSON specification. JSON Schema validation, which checks whether data matches a specific structure with required fields and types, is a different process. The tool focuses on catching syntax errors instantly and showing their exact location."
       }
     },
     {
@@ -83,7 +83,7 @@
       "name": "Is my JSON validated locally or sent to a server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "All validation happens entirely in your browser using the native JavaScript JSON.parse() function. No data is ever sent to any server. There are no analytics, cookies, or tracking. This makes freejsonformatter.app safe for validating sensitive or proprietary JSON data."
+        "text": "All validation happens entirely in your browser using the native JavaScript JSON.parse() function. No data is ever sent to any server. There are no analytics, cookies, or tracking of any kind. This makes freejsonformatter.app safe for validating sensitive or proprietary JSON data."
       }
     }
   ]
@@ -199,7 +199,7 @@ details[open] summary{border-bottom:1px solid var(--border)}
 .related-links a:hover{text-decoration:underline}
 
 /* Attribution badge */
-.attribution{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted)}
+.attribution{position:fixed;bottom:34px;right:16px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text-muted);z-index:10;padding:4px 8px}
 
 /* Footer */
 footer{text-align:center;padding:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted)}
@@ -323,7 +323,7 @@ JSON Validator
 </ul>
 </section>
 
-<div class="attribution">freejsonformatter.app — free, private, no tracking</div>
+<div class="attribution">by freesuite.app</div>
 
 </div>
 

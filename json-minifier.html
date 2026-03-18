@@ -9,13 +9,13 @@
 <link rel="canonical" href="https://freejsonformatter.app/json-minifier.html">
 <meta property="og:title" content="Free JSON Minifier Online — Compress JSON Instantly | freejsonformatter.app">
 <meta property="og:description" content="Minify and compress JSON online for free. Remove whitespace, reduce payload size, and validate in one click.">
-<meta property="og:image" content="/og-image.svg">
+<meta property="og:image" content="https://freejsonformatter.app/og-image.svg">
 <meta property="og:url" content="https://freejsonformatter.app/json-minifier.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free JSON Minifier Online — Compress JSON Instantly | freejsonformatter.app">
 <meta name="twitter:description" content="Minify and compress JSON online for free. Remove whitespace, reduce payload size, and validate in one click.">
-<meta name="twitter:image" content="/og-image.svg">
+<meta name="twitter:image" content="https://freejsonformatter.app/og-image.svg">
 <meta name="theme-color" content="#faf9f6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
       "name": "What is JSON minification?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "JSON minification is the process of removing all unnecessary whitespace, line breaks, and indentation from a JSON document without changing the data. The result is a compact, single-line string that is functionally identical to the original but uses significantly less storage space and bandwidth."
+        "text": "JSON minification is the process of removing all unnecessary whitespace, line breaks, and indentation from a JSON document without changing the data. The result is a compact, single-line string that is functionally identical to the original but significantly smaller in file size. Any JSON parser will produce the exact same data structure from both the formatted and minified versions."
       }
     },
     {
@@ -59,7 +59,7 @@
       "name": "How much space does minifying JSON save?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The savings depend on how heavily formatted the original JSON is. A typical 50KB pretty-printed JSON file minifies down to roughly 32KB, a 36% reduction. Deeply nested structures with lots of indentation can see savings of 40% or more, while flat key-value pairs usually save around 20-25%."
+        "text": "Typical savings range from 20% to 40%, depending on the depth of nesting and the indentation style used in the original file. A 50KB pretty-printed JSON file commonly minifies to around 32KB, which is a 36% reduction. Deeply nested structures with generous indentation tend to save even more, while flat key-value files save less."
       }
     },
     {
@@ -67,7 +67,7 @@
       "name": "Does minifying JSON change the data?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. JSON minification only removes cosmetic whitespace, tabs, and newlines. Every key, value, array, and nested object remains exactly the same. Any JSON parser will produce identical results whether it reads the formatted or minified version."
+        "text": "No. Minification only removes cosmetic characters — spaces, tabs, and newlines — that have no effect on the data. Every key, value, array element, and nested object remains exactly the same. The minified output is semantically identical to the original and will be parsed identically by any JSON-compliant parser."
       }
     },
     {
@@ -75,7 +75,7 @@
       "name": "Can I minify and validate at the same time?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. freejsonformatter.app validates your JSON before minifying it. If the input contains syntax errors, the tool highlights the exact problem and line number so you can fix it before minification. This ensures your minified output is always valid JSON."
+        "text": "Yes. freejsonformatter.app automatically validates your JSON before minifying it. If the input contains syntax errors, the tool will highlight the problem and show the exact line number so you can fix it first. This ensures the minified output is always valid, well-formed JSON."
       }
     },
     {
@@ -83,7 +83,7 @@
       "name": "Is there a size limit for JSON minification?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "freejsonformatter.app processes JSON entirely in your browser, so there is no server-imposed size limit. Performance depends on your device, but most modern browsers handle files up to several megabytes without any issues."
+        "text": "Because freejsonformatter.app processes everything in your browser using native JavaScript, there is no server-imposed size limit. The practical limit depends on your device's available memory, but modern browsers comfortably handle JSON files up to several megabytes with no performance issues."
       }
     }
   ]
@@ -199,9 +199,7 @@ details .faq-body{padding:0 18px 16px;font-size:14px;color:var(--text-secondary)
 .related-links a:hover{background:var(--surface)}
 
 /* Attribution badge */
-.attribution{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
-.attribution a{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);text-decoration:none}
-.attribution a:hover{color:var(--accent)}
+.attribution{position:fixed;bottom:34px;right:16px;font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text-muted);z-index:10;padding:4px 8px}
 
 /* Footer */
 footer{text-align:center;padding:24px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted)}
@@ -316,9 +314,7 @@ function toggleTheme(){document.documentElement.classList.toggle('dark');localSt
 </ul>
 </section>
 
-<div class="attribution">
-<a href="https://freejsonformatter.app/">freejsonformatter.app</a>
-</div>
+<div class="attribution">by freesuite.app</div>
 
 </div>
 

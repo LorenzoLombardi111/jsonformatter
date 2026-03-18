@@ -9,13 +9,13 @@
 <link rel="canonical" href="https://freejsonformatter.app/">
 <meta property="og:title" content="Free JSON Formatter &amp; Validator Online | freejsonformatter.app">
 <meta property="og:description" content="Free online JSON formatter, validator, and minifier. Syntax highlighting, tree view, auto-fix, and compare. No login, no tracking.">
-<meta property="og:image" content="/og-image.svg">
+<meta property="og:image" content="https://freejsonformatter.app/og-image.svg">
 <meta property="og:url" content="https://freejsonformatter.app/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free JSON Formatter &amp; Validator Online | freejsonformatter.app">
 <meta name="twitter:description" content="Free online JSON formatter, validator, and minifier. No login, no tracking.">
-<meta name="twitter:image" content="/og-image.svg">
+<meta name="twitter:image" content="https://freejsonformatter.app/og-image.svg">
 <meta name="theme-color" content="#faf9f6">
 <link rel="manifest" href="/manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,6 +107,10 @@
   ]
 }
 </script>
+<script>
+// Theme init (must be in head to prevent flash)
+(function(){var s=localStorage.getItem('suite_theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')})();
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -187,7 +191,7 @@ html.dark .theme-toggle::after{transform:translateX(16px)}
 
 /* Code editor */
 .editor-wrapper{flex:1;display:flex;position:relative;overflow:hidden}
-.line-numbers{width:40px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);overflow:hidden;padding:12px 4px 12px 0;text-align:right;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.5;color:var(--text-muted);user-select:none}
+.line-numbers{width:40px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);overflow:hidden;padding:12px 4px 12px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;color:var(--text-muted);user-select:none}
 .editor-container{flex:1;position:relative;overflow:hidden}
 .editor-highlight{position:absolute;top:0;left:0;right:0;bottom:0;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow:auto;pointer-events:none;color:transparent}
 .editor-textarea{position:absolute;top:0;left:0;width:100%;height:100%;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;background:transparent;color:var(--text-primary);border:none;outline:none;resize:none;white-space:pre-wrap;word-wrap:break-word;overflow:auto;caret-color:var(--text-primary);-webkit-text-fill-color:transparent}
@@ -259,6 +263,8 @@ html.dark .stat-valid{color:#6bbd7a}
 .search-info{font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);white-space:nowrap}
 .search-bar .case-toggle{padding:2px 6px;font-size:11px;border-radius:4px}
 .search-bar .case-toggle.active{background:var(--accent);color:var(--accent-text)}
+mark.search-match{background:rgba(196,154,42,0.25);color:inherit;border-radius:2px}
+mark.search-current{background:var(--accent);color:var(--accent-text);border-radius:2px}
 
 /* Status bar */
 .status-bar{height:32px;display:flex;align-items:center;padding:0 16px;background:var(--surface);border-top:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-muted);flex-shrink:0;z-index:20}
@@ -349,7 +355,7 @@ html.dark .status-valid{color:#6bbd7a}
 <main class="main-container">
 <!-- Editor Panel -->
 <section class="editor-panel" id="editor-panel">
-<div class="search-bar" id="search-bar">
+<div class="search-bar" id="search-bar" role="search">
 <input type="text" id="search-input" placeholder="Find..." oninput="doSearch()" onkeydown="searchKeydown(event)">
 <span class="search-info" id="search-info">0 of 0</span>
 <button class="btn-small btn-secondary case-toggle" id="case-toggle" onclick="toggleCase()">Aa</button>
@@ -380,11 +386,11 @@ html.dark .status-valid{color:#6bbd7a}
 <div class="line-numbers" id="line-numbers">1</div>
 <div class="editor-container">
 <pre class="editor-highlight mono-font" id="editor-highlight" aria-hidden="true"></pre>
-<textarea class="editor-textarea" id="editor" spellcheck="false" placeholder="Paste your JSON here..." oninput="onEditorInput()" onscroll="syncScroll()" onkeydown="editorKeydown(event)" onclick="updateCursor()" onkeyup="updateCursor()"></textarea>
+<textarea class="editor-textarea" id="editor" spellcheck="false" aria-label="JSON input editor" placeholder="Paste your JSON here..." oninput="onEditorInput()" onscroll="syncScroll()" onkeydown="editorKeydown(event)" onclick="updateCursor()" onkeyup="updateCursor()"></textarea>
 </div>
 <div class="drop-overlay" id="drop-overlay">Drop JSON file here</div>
 </div>
-<div class="error-banner" id="error-banner">
+<div class="error-banner" id="error-banner" role="alert">
 <span id="error-text"></span>
 <button class="dismiss" onclick="dismissError()">&#10005;</button>
 </div>
@@ -411,11 +417,11 @@ html.dark .status-valid{color:#6bbd7a}
 <div class="compare-panels">
 <div class="compare-side">
 <div class="compare-label">Original <button class="btn-secondary btn-small" onclick="clearCompare('left')">Clear</button></div>
-<textarea class="compare-textarea" id="compare-left" placeholder="Paste first JSON..."></textarea>
+<textarea class="compare-textarea" id="compare-left" aria-label="Original JSON for comparison" placeholder="Paste first JSON..."></textarea>
 </div>
 <div class="compare-side">
 <div class="compare-label">Modified <button class="btn-secondary btn-small" onclick="clearCompare('right')">Clear</button></div>
-<textarea class="compare-textarea" id="compare-right" placeholder="Paste second JSON..."></textarea>
+<textarea class="compare-textarea" id="compare-right" aria-label="Modified JSON for comparison" placeholder="Paste second JSON..."></textarea>
 </div>
 </div>
 <div class="compare-label" style="justify-content:center"><button class="btn-primary btn-small" onclick="runCompare()">Compare</button></div>
@@ -468,13 +474,13 @@ html.dark .status-valid{color:#6bbd7a}
 <div class="status-bar">
 <div class="status-left" id="status-cursor">Ln 1, Col 1 &middot; 0 chars</div>
 <div class="status-center" id="status-validation">&nbsp;</div>
-<div class="status-right">Ctrl+Shift+F to format &middot; Ctrl+Shift+M to minify</div>
+<div class="status-right">Ctrl+Shift+F format &middot; Ctrl+Shift+M minify &middot; Ctrl+Enter validate</div>
 </div>
 
 <div class="attribution"><span class="full-attr">by freesuite.app</span><span class="mobile-attr" style="display:none">freesuite.app</span></div>
 
 <!-- URL Import Modal -->
-<div class="modal-overlay" id="url-modal">
+<div class="modal-overlay" id="url-modal" onclick="if(event.target===this)closeUrlModal()">
 <div class="modal">
 <h3 class="ui-font">Import JSON from URL</h3>
 <input type="text" id="url-input" placeholder="https://api.example.com/data.json" onkeydown="if(event.key==='Enter')fetchUrl()">
@@ -563,11 +569,7 @@ let lastFormattedOutput = '';
 
 // Init
 (function init() {
-  // Theme
-  const saved = localStorage.getItem('suite_theme');
-  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark');
-  }
+  // Theme already set in <head> to prevent flash
   // Font size
   const fs = localStorage.getItem('jf_fontsize');
   if (fs) { editorFontSize = parseInt(fs); document.querySelector('.font-select').value = fs; setFontSize(fs); }
@@ -686,7 +688,41 @@ function onEditorInput() {
 
 function updateHighlight() {
   const code = document.getElementById('editor').value;
-  document.getElementById('editor-highlight').innerHTML = syntaxHighlight(escapeHtml(code));
+  let html = syntaxHighlight(escapeHtml(code));
+  // Apply search highlights if active
+  if (searchMatches.length > 0) {
+    const escaped = escapeHtml(code);
+    let result = '';
+    let lastIdx = 0;
+    // Map original text positions to escaped HTML positions
+    const posMap = [];
+    let ei = 0;
+    for (let i = 0; i < code.length; i++) {
+      posMap[i] = ei;
+      if (code[i] === '&') ei += 5; // &amp;
+      else if (code[i] === '<') ei += 4; // &lt;
+      else if (code[i] === '>') ei += 4; // &gt;
+      else ei += 1;
+    }
+    posMap[code.length] = ei;
+    // Re-highlight with search marks applied after syntax highlighting
+    // Simpler approach: rebuild with marks on the escaped text, then syntax-highlight
+    result = '';
+    lastIdx = 0;
+    const esc = escapeHtml(code);
+    for (let i = 0; i < searchMatches.length; i++) {
+      const m = searchMatches[i];
+      const s = posMap[m.start];
+      const e = posMap[m.end];
+      result += esc.substring(lastIdx, s);
+      const cls = i === searchIndex ? 'search-current' : 'search-match';
+      result += '<mark class="' + cls + '">' + esc.substring(s, e) + '</mark>';
+      lastIdx = e;
+    }
+    result += esc.substring(lastIdx);
+    html = syntaxHighlight(result);
+  }
+  document.getElementById('editor-highlight').innerHTML = html;
 }
 
 function escapeHtml(s) {
@@ -795,18 +831,22 @@ function fixAndFormat() {
   let fixed = text;
   let fixes = [];
 
-  // Remove comments
+  // Remove comments (only outside strings)
   const beforeComments = fixed;
-  fixed = fixed.replace(/\/\/.*$/gm, '');
-  fixed = fixed.replace(/\/\*[\s\S]*?\*\//g, '');
+  fixed = fixed.replace(/"(?:[^"\\]|\\.)*"|\/\/.*$|\/\*[\s\S]*?\*\//gm, function(m) {
+    if (m.startsWith('"')) return m; // preserve strings
+    return m.startsWith('//') ? '' : '';
+  });
   if (fixed !== beforeComments) fixes.push('removed comments');
 
-  // Replace single quotes with double quotes
+  // Replace single quotes with double quotes (only quote delimiters, not inside strings)
   const beforeQuotes = fixed;
-  fixed = fixed.replace(/'/g, '"');
+  fixed = fixed.replace(/'(?:[^'\\]|\\.)*'/g, function(m) {
+    return '"' + m.slice(1, -1) + '"';
+  });
   if (fixed !== beforeQuotes) {
-    const count = (beforeQuotes.match(/'/g) || []).length;
-    fixes.push('replaced ' + count + ' single quotes');
+    const count = (beforeQuotes.match(/'(?:[^'\\]|\\.)*'/g) || []).length;
+    fixes.push('replaced ' + count + ' single-quoted strings');
   }
 
   // Add quotes to unquoted keys
@@ -910,7 +950,10 @@ function updateStats() {
     document.getElementById('stat-keys').textContent = countKeys(parsed);
     document.getElementById('stat-depth').textContent = maxDepth(parsed);
     document.getElementById('stat-type').textContent = Array.isArray(parsed) ? 'Array' : typeof parsed === 'object' && parsed !== null ? 'Object' : typeof parsed;
-    setValidStatus(true);
+    // Only set valid if no error banner is visible (don't override explicit validation errors)
+    if (!document.getElementById('error-banner').classList.contains('visible')) {
+      setValidStatus(true);
+    }
   } catch(e) {
     // Keep previous stats if invalid
   }
@@ -1054,9 +1097,8 @@ function deepCompare(a, b, path) {
 
 // Copy
 function copyOutput() {
-  if (lastFormattedOutput) {
-    navigator.clipboard.writeText(lastFormattedOutput).then(() => toast('Copied!'));
-  }
+  if (!lastFormattedOutput) { toast('Nothing to copy'); return; }
+  navigator.clipboard.writeText(lastFormattedOutput).then(() => toast('Copied!'));
 }
 
 // Download
@@ -1067,7 +1109,7 @@ function downloadJSON() {
   a.href = URL.createObjectURL(blob);
   a.download = 'formatted.json';
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   toast('Downloaded!');
 }
 
@@ -1226,13 +1268,12 @@ document.addEventListener('keydown', e => {
   if (ctrl && e.shiftKey && e.key === 'F') { e.preventDefault(); formatJSON(); }
   else if (ctrl && e.shiftKey && e.key === 'M') { e.preventDefault(); minifyJSON(); }
   else if (ctrl && e.shiftKey && e.key === 'X') { e.preventDefault(); fixAndFormat(); }
-  else if (ctrl && e.shiftKey && e.key === 'C') { e.preventDefault(); copyOutput(); }
   else if (ctrl && e.shiftKey && e.key === 'S') { e.preventDefault(); downloadJSON(); }
-  else if (ctrl && e.shiftKey && e.key === 'T') { e.preventDefault(); setView('tree', null); }
   else if (ctrl && e.shiftKey && e.key === 'D') { e.preventDefault(); toggleCompare(); }
   else if (ctrl && e.shiftKey && (e.key === 'Delete' || e.key === 'Backspace')) { e.preventDefault(); clearEditor(); }
   else if (ctrl && e.key === 'Enter') { e.preventDefault(); validateJSON(); }
   else if (ctrl && e.key === 'f') { e.preventDefault(); openSearch(); }
+  else if (e.key === 'Escape' && document.getElementById('url-modal').classList.contains('visible')) { closeUrlModal(); }
 });
 
 // Share via URL hash
