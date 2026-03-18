@@ -6,6 +6,7 @@
 <title>Free JSON Formatter &amp; Validator Online - No Login Required | freejsonformatter.app</title>
 <meta name="description" content="Free online JSON formatter, validator, and minifier. Syntax highlighting, tree view, auto-fix, and compare. No login, no tracking. freejsonformatter.app">
 <meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="canonical" href="https://freejsonformatter.app/">
 <meta property="og:title" content="Free JSON Formatter &amp; Validator Online | freejsonformatter.app">
 <meta property="og:description" content="Free online JSON formatter, validator, and minifier. Syntax highlighting, tree view, auto-fix, and compare. No login, no tracking.">
@@ -192,6 +193,7 @@ html.dark .theme-toggle::after{transform:translateX(16px)}
 /* Code editor */
 .editor-wrapper{flex:1;display:flex;position:relative;overflow:hidden}
 .line-numbers{width:40px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);overflow:hidden;padding:12px 4px 12px 0;text-align:right;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;color:var(--text-muted);user-select:none}
+.ln-error{color:var(--destructive);font-weight:700;background:var(--syn-error-line);display:inline-block;width:100%;padding-right:4px;border-radius:2px}
 .editor-container{flex:1;position:relative;overflow:hidden}
 .editor-highlight{position:absolute;top:0;left:0;right:0;bottom:0;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;overflow:auto;pointer-events:none;color:transparent;z-index:2}
 .editor-textarea{position:absolute;top:0;left:0;width:100%;height:100%;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.5;background:var(--bg);color:var(--text-primary);border:none;outline:none;resize:none;white-space:pre-wrap;word-wrap:break-word;overflow:auto;z-index:1}
@@ -390,7 +392,7 @@ html.dark .status-valid{color:#6bbd7a}
 </div>
 <div class="drop-overlay" id="drop-overlay">Drop JSON file here</div>
 </div>
-<div class="error-banner" id="error-banner" role="alert">
+<div class="error-banner" id="error-banner" role="alert" onclick="jumpToError()">
 <span id="error-text"></span>
 <button class="dismiss" onclick="dismissError()">&#10005;</button>
 </div>
@@ -682,8 +684,21 @@ function onEditorInput() {
     updateLineNumbers();
     updateStats();
     updateCursor();
+    liveValidate();
     if (autosaveEnabled) localStorage.setItem('jf_draft', document.getElementById('editor').value);
-  }, 50);
+  }, 150);
+}
+
+function liveValidate() {
+  const text = document.getElementById('editor').value.trim();
+  if (!text) { clearError(); setValidStatus(true); return; }
+  try {
+    JSON.parse(text);
+    clearError();
+    setValidStatus(true);
+  } catch(e) {
+    showError(e, text);
+  }
 }
 
 function updateHighlight() {
@@ -739,8 +754,11 @@ function updateLineNumbers() {
   const lines = text.split('\n').length;
   const ln = document.getElementById('line-numbers');
   let html = '';
-  for (let i = 1; i <= lines; i++) html += i + '\n';
-  ln.textContent = html;
+  for (let i = 1; i <= lines; i++) {
+    if (i === errorLine) html += '<span class="ln-error">' + i + '</span>\n';
+    else html += i + '\n';
+  }
+  ln.innerHTML = html;
 }
 
 function syncScroll() {
@@ -887,10 +905,10 @@ function showFormatted(text) {
 }
 
 // Error handling
+let errorLine = null;
 function showError(e, text) {
   const msg = e.message;
   let line = 1, col = 1;
-  // Try to extract position from error message
   const posMatch = msg.match(/position\s+(\d+)/i);
   if (posMatch) {
     const pos = parseInt(posMatch[1]);
@@ -903,19 +921,32 @@ function showError(e, text) {
     line = parseInt(lineColMatch[1]);
     col = parseInt(lineColMatch[2]);
   }
-  const errorText = 'Error at line ' + line + ', column ' + col + ': ' + msg;
+  errorLine = line;
+  const errorText = 'Line ' + line + ', Col ' + col + ': ' + msg;
   document.getElementById('error-text').textContent = errorText;
   document.getElementById('error-banner').classList.add('visible');
   setValidStatus(false, line);
+  updateLineNumbers();
   parsedJSON = null;
 }
 
 function clearError() {
   document.getElementById('error-banner').classList.remove('visible');
+  if (errorLine !== null) { errorLine = null; updateLineNumbers(); }
 }
 
 function dismissError() {
   clearError();
+}
+
+function jumpToError() {
+  if (!errorLine) return;
+  const editor = document.getElementById('editor');
+  const lines = editor.value.split('\n');
+  let pos = 0;
+  for (let i = 0; i < errorLine - 1 && i < lines.length; i++) pos += lines[i].length + 1;
+  editor.focus();
+  editor.setSelectionRange(pos, pos + (lines[errorLine - 1] || '').length);
 }
 
 function setValidStatus(valid, errorLine) {
